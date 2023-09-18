@@ -16,9 +16,16 @@ pub fn plains() {
 
     loop {
         locations::map(CURRENT_LOCATION,CURRENT_CARDINAL_POINT);
+        plains_player_action(&*player_action);
+    }
+}
+fn plains_player_action(player_action: &str) {
+    if player_action.contains("go.") {
 
         if player_action.contains("go.south.forest") {
+            println!("You're wandering away from the peaceful Plains and heading towards the big southern forest.");
             locations::south::forest();
+            println!("You returned from the southern forest to the Plains. Where do you wanna go now?");
         } else if player_action.contains("go.east.barn") {
             locations::east::barn();
         } else if player_action.contains("go.west.castle") {
@@ -26,6 +33,7 @@ pub fn plains() {
         } else {
             println!("Unknown location. Please try again!");
         }
-        break;
+    } else {
+        std::process::exit(0);
     }
 }
