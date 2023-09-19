@@ -1,8 +1,8 @@
-use crate::locations;
+use crate::console_read;
 
-pub fn plains() {
-    const CURRENT_LOCATION: &str = "plains";
-    const CURRENT_CARDINAL_POINT: &str = "center";
+pub(crate) fn plains() -> (String, String) {
+    let mut player_action: String = String::new();
+    const LOCATIONS: [&'static str; 2] = ["plains","forest"];
 
     println!("
         As you are standing on a great plain you can only see the blue sky with clouds.
@@ -12,28 +12,44 @@ pub fn plains() {
         A sparkle between the trees in the south catches your eye."
     );
 
-    let mut player_action:String = String::new();
-
     loop {
-        locations::map(CURRENT_LOCATION,CURRENT_CARDINAL_POINT);
-        plains_player_action(&*player_action);
-    }
-}
-fn plains_player_action(player_action: &str) {
-    if player_action.contains("go.") {
+        player_action = console_read("What you wanna do? ".to_string());
+        if player_action.eq("go") {
+            return plains_go(player_action);
 
-        if player_action.contains("go.south.forest") {
-            println!("You're wandering away from the peaceful Plains and heading towards the big southern forest.");
-            locations::south::forest();
-            println!("You returned from the southern forest to the Plains. Where do you wanna go now?");
-        } else if player_action.contains("go.east.barn") {
-            locations::east::barn();
-        } else if player_action.contains("go.west.castle") {
-            locations::west::castle();
-        } else {
-            println!("Unknown location. Please try again!");
+        } else if player_action.eq("talk") {
+            plains_talk(player_action);
+
+        } else if player_action.eq("attack") {
+            plains_attack(player_action);
+
         }
-    } else {
-        std::process::exit(0);
+        else if player_action.eq("exit") {
+            std::process::exit(0);
+        }
+    }
+
+    fn plains_go(mut player_action: String) -> (String, String) {
+        loop {
+            player_action = console_read(format!("Select a location you want to go to: {:?}", LOCATIONS));
+
+            if player_action.eq("forest") {
+                return ("south".to_string(), "forest".to_string());
+
+            } else if player_action.eq("plains") {
+                break;
+
+            }
+        }
+        return ("".to_string(), "".to_string())
+    }
+
+    fn plains_talk(mut player_action: String) {
+        player_action = console_read("Who you wanna talk to? ".to_string());
+    }
+
+    fn plains_attack(mut player_action: String) {
+        player_action = console_read("Who you wanna attack? ".to_string());
+
     }
 }
