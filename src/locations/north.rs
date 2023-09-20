@@ -1,16 +1,11 @@
-use crate::locations;
-const CURRENT_CARDINAL_POINT: &str = "north";
-pub(crate) fn cave() {
-    const CURRENT_LOCATION: &str = "cave";
-    loop {
-        locations::map(CURRENT_LOCATION,CURRENT_CARDINAL_POINT);
-        break;
-    }
+use crate::console_read;
+
+pub(crate) fn cave(next_location: (String, String)) -> (String, String) {
+    const LOCATIONS: [&'static str; 2] = ["cave_inside", "plains"];
+
+    return next_location;
 }
-pub(crate) fn cave_inside() {
-    const CURRENT_LOCATION: &str = "cave(inside)";
-    loop {
-        locations::map(CURRENT_LOCATION, CURRENT_CARDINAL_POINT);
-        break;
-    }
+
+pub(crate) fn cave_inside(next_location: (String, String))  -> (String, String) {
+    return next_location;
 }

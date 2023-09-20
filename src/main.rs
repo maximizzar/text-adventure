@@ -6,15 +6,20 @@ fn main() {
     let mut next_location: (String, String) = (String::from("center"), String::from("plains"));
     loop {
         if next_location.0.eq("center") {
-            next_location = locations::center(next_location);
+            next_location = locations::locations(next_location);
+
         } else if next_location.0.eq("east") {
             next_location = locations::east(next_location);
+
         } else if next_location.0.eq("north") {
             next_location = locations::north(next_location);
+
         } else if next_location.0.eq("south") {
             next_location = locations::south(next_location);
+
         } else if next_location.0.eq("west") {
             next_location = locations::west(next_location);
+
         } else {
             return;
         }
