@@ -1,0 +1,37 @@
+locations:
+  center:
+    contains: 'plains'
+    accessible: 'castle, cave, eastern_barn, southern_forest'
+
+  east:
+    contains: 'eastern_barn'
+    accessible: 'plains'
+
+  north:
+    contains: 'cave, cave_inside'
+    accessible: 'cave_inside, plains'
+
+  south:
+    contains: 'southern_forest'
+    accessible: 'plains'
+
+  west:
+    contains: 'castle, castle_tent'
+    accessible: 'castle_tent, plains'
+
+npcs:
+  center:
+    none:
+
+  east:
+    typhon: 'Sheperd' #barn
+
+  north:
+    dain: 'Black Knight' # cave_inside
+
+  south:
+    ghorkan: 'Master of the forest'
+
+  west:
+    blacksmith: 'Blacksmtith' #castle_tent
+    noblemen: 'Noblemen' #castle
