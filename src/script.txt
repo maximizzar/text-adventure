@@ -103,22 +103,6 @@ Working Commands: !LOOK: around
 Purpose:
 	get ITEM "sticks and hilt" from TYPHON in order to make the ITEM "rare sword"
 
-Working Commands: !LOOK: around
-		   ... You look around...
-		       Walking towards the brittle barn you recognize a bearded man with a dog nearby.
-		       The man does not seem pretty chatty.
-		       Nevertheless, he hands you a bag with sticks and a hilt.
-		       !Typhon, a shepherd, is here.
-*GO
-		    !GO: west
-		   ... you wander away from the barn towards the open plains.
-*TALK
-		  !TALK: to (Typhon)
-		   ... he recognizes you, but does not seem to want to converse, odd fellow.
-*TAKE
-		  !TAKE: sticks and hilt
-		   ... You take a bag with sticks and a hilt from Typhon.
-		       After you take them, he nods at you, like saying you'll need them.
 - Castle(West)
 Purpose:
 	Getting the quest to kill the "black knight" in the cave(north) by the noblemen for the ITEM "jewel steel" for the "rare sword",
