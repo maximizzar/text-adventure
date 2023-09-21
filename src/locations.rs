@@ -1,10 +1,12 @@
+use crate::{console_read, exit};
+
 mod center;
 mod east;
 mod north;
 mod south;
 mod west;
 
-pub fn locations(mut next_location: (String, String)) -> (String, String) {
+pub fn locations(next_location: (String, String)) -> (String, String) {
     if next_location.0.eq("center") {
         return center(next_location);
 
@@ -21,19 +23,19 @@ pub fn locations(mut next_location: (String, String)) -> (String, String) {
         return west(next_location);
 
     } else if next_location.0.eq("exit") {
-        return next_location;
+        exit();
     }
     panic!("invalid cardinal location!")
 }
 
-pub fn center(mut next_location: (String,String)) -> (String,String) {
+pub fn center(next_location: (String,String)) -> (String,String) {
     if next_location.1.eq("plains") {
         return center::plains(next_location);
     }
     panic!("invalid location for center!")
 }
 
-pub fn east(mut next_location: (String,String)) -> (String,String) {
+pub fn east(next_location: (String,String)) -> (String,String) {
     if next_location.1.eq("eastern_barn") {
         return east::eastern_barn(next_location);
 
@@ -41,7 +43,7 @@ pub fn east(mut next_location: (String,String)) -> (String,String) {
     panic!("invalid location for east!")
 }
 
-pub fn north(mut next_location: (String,String)) -> (String,String) {
+pub fn north(next_location: (String,String)) -> (String,String) {
     if next_location.1.eq("cave") {
         return north::cave(next_location);
 
@@ -52,7 +54,7 @@ pub fn north(mut next_location: (String,String)) -> (String,String) {
     panic!("invalid location for north!")
 }
 
-pub fn south(mut next_location: (String,String)) -> (String,String) {
+pub fn south(next_location: (String,String)) -> (String,String) {
     if next_location.1.eq("southern_forest") {
         return south::southern_forest(next_location);
 
@@ -60,7 +62,7 @@ pub fn south(mut next_location: (String,String)) -> (String,String) {
     panic!("invalid location for south!")
 }
 
-pub fn west(mut next_location: (String,String)) -> (String,String) {
+pub fn west(next_location: (String,String)) -> (String,String) {
     if next_location.1.eq("castle") {
         return west::castle(next_location);
 
@@ -68,12 +70,17 @@ pub fn west(mut next_location: (String,String)) -> (String,String) {
         return west::castle_tent(next_location);
 
     }
-
-
     panic!("invalid location for west!")
 
 }
 
-pub fn map(cardinal_point: &str, location: &str) {
-    println!("Your located in the {} at the {}", location, cardinal_point);
+fn set_player_action(mut player_action: String, locations: Box<[&'static str]>) -> String {
+    loop {
+        player_action = console_read(format!(
+            "Select a location you want to go to: {:?}", locations));
+
+        if locations.contains(&&*player_action) {
+            return player_action;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-use crate::console_read;
+use crate::{console_read, exit};
 
 pub(crate) fn plains(next_location: (String, String)) -> (String, String) {
     let mut player_action: String = String::new();
@@ -18,28 +18,19 @@ pub(crate) fn plains(next_location: (String, String)) -> (String, String) {
             return plains_go(player_action, next_location);
 
         } else if player_action.eq("talk") {
-            plains_talk(player_action);
+            println!("{}", plains_talk(player_action));
 
         } else if player_action.eq("attack") {
             plains_attack(player_action);
 
         }
         else if player_action.eq("exit") {
-            std::process::exit(0);
+            exit();
         }
     }
 
     fn plains_go(mut player_action: String, next_location: (String, String)) -> (String, String) {
-        loop {
-            player_action = console_read(format!(
-                "Select a location you want to go to: {:?}", LOCATIONS));
-
-            if LOCATIONS.contains(&&*player_action) {
-                break;
-            } else if player_action.eq("exit") {
-                return ("exit".to_string(), "exit".to_string())
-            }
-        }
+        player_action = crate::locations::set_player_action(player_action, Box::from(LOCATIONS));
 
         if player_action.eq("castle") {
             return ("west".to_string(), "castle".to_string());
@@ -53,12 +44,19 @@ pub(crate) fn plains(next_location: (String, String)) -> (String, String) {
         } else if player_action.eq("southern_forest") {
             return ("south".to_string(), "southern_forest".to_string())
 
+        } else if player_action.eq("exit") {
+            return ("exit".to_string(), "exit".to_string())
         }
         return next_location;
     }
 
-    fn plains_talk(mut player_action: String) {
+    fn plains_talk(mut player_action: String) -> &'static str {
         player_action = console_read("Who you wanna talk to? ".to_string());
+
+        if player_action.eq("self") {
+            return "Why do I even exist?";
+        }
+        return "...";
     }
 
     fn plains_attack(mut player_action: String) {
